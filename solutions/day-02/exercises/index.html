@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>30 Days Of React Challenge: Day 2 - Introduction to React</title>
+
+		<style>
+			/* == General style === */
+			* {
+			  box-sizing: border-box;
+			  padding: 0;
+			  margin: 0;
+			}
+	  
+			html,
+			body {
+			  height: 100%;
+			  line-height: 1.5;
+			  font-family: 'Montserrat';
+			  font-weight: 300;
+			  color: black;
+			}
+
+			.user {
+				color: orchid;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="root"></div>
+
+		<!-- Import React and ReactDOM using CDN -->
+		<script
+			crossorigin
+			src="https://unpkg.com/react@16/umd/react.development.js"
+		></script>
+		<script
+			crossorigin
+			src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+		></script>
+
+		<!-- Babel will transpile the react JSX to pure JavaScript on the browser -->
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+		<!-- Script type will be babel -->
+		<script type="text/babel" src="./exercises.js"></script>
+
+	</body>
+</html>
