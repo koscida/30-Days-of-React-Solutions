@@ -7,38 +7,23 @@ import img from './images/frontend_technologies.png'
 import apple from './images/apple.jpg'
 
 
-const ReusableButton = () => <button>Button</button>
-const ReusableInputField = () => <input type="text" />
-const ReusableAlertBox = () => {
-	const timeHour =new Date().getHours()
-	const message = (timeHour < 7 || timeHour >= 18) ? "Night time" : "Day time"
-	return <div>
-		<p>{message}</p>
-	</div>
-}
+
 const exercise1 = (
 	<div>
 		<h1>Exercises: Level 1</h1>
 		<ol>
-			<li>What is the difference between a regular function and an arrow function?<br/>
-			syntax, scope (affects arguments and this), constructor use 
-			</li>
-			<li>What is a React Component?<br/>
-			small, reusable code, responsible for one part of the application UI</li>
-			<li>How do you make a React functional component?<br/>functional or flass components</li>
-			<li>What is the difference between a pure JavaScript function and a functional component?<br/>JSX</li>
-			<li>How small is a React component?<br/>&lt;&gt;&lt;/&gt;</li>
-			<li>Can we make a button or input field component?<br/>yes</li>
-			<li>Make a reusable Button component.<br/><ReusableButton /><br/><ReusableButton /><br/><ReusableButton /></li>
-			<li>Make a reusable InputField component.<br/><ReusableInputField /><br/><ReusableInputField /></li>
-			<li>Make a reusable alert box component with one div parent element and one p child element of 
-				the div(warning alert box, success alert box).<br/><ReusableAlertBox /><br/><ReusableAlertBox />
-			</li>
+			<li>What is props in a React component ?<br/>properties of a component</li>
+			<li>How do you access props in a React component ?<br/>dot notation</li>
+			<li>What data types can we pass as props to components ?<br/>all of them</li>
+			<li>What is a propTypes?<br/>?</li>
+			<li>What is a default propTypes?<br/>?</li>
 		</ol>
 	</div>
 )
 
-const FrontEndImg = () => <img src={img} style={{'width':'100%'}} alt='front end technologies'/>
+
+
+const FrontEndImg = ({ img }) => <img src={img} style={{'width':'100%'}} alt='front end technologies'/>
 const SubscribeElement = () =>
 	<>
 		<div className='subscribe' style={{background: '#f9f7f7', padding: '20px', 'font-family':'tahoma, sans-serif'}}>
@@ -58,24 +43,26 @@ const exercise2 = (
 	<div>
 		<h2>Exercises: Level 2</h2>
 		<ol>
-		<li>1. Create functional components and display the following images<br/>
-		<FrontEndImg /></li>
-		<li>2. Use functional component to create the following design<br/>
+		<li>Create functional components and display the following images<br/>
+		<FrontEndImg img={img}/></li>
+		<li>Use functional component to create the following design<br/>
 		<SubscribeElement /></li>
 		</ol>
 	</div>
 )
 
+
+
 // user card
 const listElementStyle = {'display': 'inline-block', margin:'0 10px 10px 0', 'padding': '5px', 'background': '#29cfcf', 'border-radius': '5px', 'color': 'white'}
 const skills = ['HTML','CSS',"Sass","JS","React","Redux","Node","MongoDB","Python","Flask","Django","NumPy","Pandas","Data Analysis","MYSQL","GraphQL","D3.js","Gatsby","Docker","Heroku","Git"]
 const skillList = skills.map((x) => <li key={x} style={listElementStyle}>{x}</li>)
-const UserCard = () =>
+const UserCard = ({ fullName: {firstName, lastName}, userImg, position, location }) =>
 	<div style={{background: '#f4f4f4', padding:'5px 10px', 'font-family': 'sans-serif'}}>
 		<div style={{'border-radius': '5px', background:'white', padding:'20px'}}>
-			<img src={apple} alt="" style={{'border-radius': '50%', width: '150px', border:'1px solid #fbfbfb'}}/>
-			<h1 style={{'text-transform': 'uppercase', 'font-size': '1em'}}>Sally Brown <span style={{display: 'inline-block', width: '1em', height:'1em',background:'#29cfcf','border-radius':'50%', 'margin-left': '3px'}}></span></h1>
-			<p>Developer, Earth</p>
+			<img src={userImg} alt="" style={{'border-radius': '50%', width: '150px', border:'1px solid #fbfbfb'}}/>
+			<h1 style={{'text-transform': 'uppercase', 'font-size': '1em'}}>{firstName} {lastName} <span style={{display: 'inline-block', width: '1em', height:'1em',background:'#29cfcf','border-radius':'50%', 'margin-left': '3px'}}></span></h1>
+			<p>{position}, {location}</p>
 			<h2 style={{'text-transform': 'uppercase', 'font-size': '1em'}}>Skills</h2>
 			<ul style={{'list-style-type': 'none', padding: '0'}}>{skillList}</ul>
 			<p><span style={{display: 'inline-block', width: '1em', height:'1em',background:'#444','border-radius':'50%', 'margin-right': '3px'}}></span>Joined on Aug 30, 2020</p>
@@ -103,13 +90,21 @@ const exercise3 = (
 	<div>
 		<h1>Exercise 3</h1>
 		<ol>
-		<li>Use the given hexadecimal color generator in the example to create these random colors<br/>
+		<li>Use the given hexadecimal color generator in the example to create these random colors. 
+			If you don't know how to generate the hexadecimal color you can use dummy data generator<br/>
 		<HexaColors />
 		</li>
-		<li>Use functional component to design the following user card.<br/><UserCard /></li>
+		<li>Use functional component to design the following user card.<br/>
+		<UserCard 
+			fullName={{'firstName': "Sally", 'lastName': "Brown"}}
+			userImg={apple}
+			position={"Developer"}
+			location={"Earth"}
+		/></li>
 		</ol>
 	</div>
 )
+
 
 
 // JSX element, app, a container or a parent
@@ -120,7 +115,6 @@ const app = (
 		{exercise2}
 		<hr/>
 		{exercise3}
-		<hr/>
 	</div>
 )
 
