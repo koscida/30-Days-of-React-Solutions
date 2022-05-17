@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+	<style>
+		.numberColor {
+			display: grid;
+			grid-template-columns: repeat(8, 100px);
+			grid-gap: 2px;
+		}
+		.numberColor > div {
+			width: 100px;
+			height: 100px;
+			padding: 20px;
+			color: white;
+			text-align: center;
+			box-sizing: border-box;
+		}
+		
+		.populationGraph {
+			display: grid;
+			grid-gap: 5px;
+		}
+		.populationGraph > div {
+			display: grid;
+			grid-template-columns: 15% 70% 15%;
+			grid-gap: 5px;
+		}
+		.bar {
+			background: #ffa500;
+			border-radius: 3px;
+			height: 1em;
+		}
+	</style>
+    <title>React App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
