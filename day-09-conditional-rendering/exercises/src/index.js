@@ -19,7 +19,7 @@ const exercise1 = (
 	</div>
 )
 
-const DisplayOptions = ({ options }) => options.map(x => <span className={x}>{x}</span> )
+const DisplayOptions = ({ options }) => options.map(x => <span className={x} key={x}>{x}</span> )
 class Exercise2 extends React.Component {
 	constructor(props) {
 		super(props)
@@ -48,6 +48,21 @@ class Exercise2 extends React.Component {
 
 
 
+class LoadingData extends React.Component {
+	state = {
+		loaded: false
+	}
+	
+	render() {
+		setTimeout(() => {this.setState({loaded: true})}, 2000);
+		const dataBlock = this.state.loaded ? <div>Data loaded! </div>: <div>Loading...</div>
+		return (
+			<div>
+				{dataBlock}
+			</div>
+		)
+	}
+}
 
 class Exercise3 extends React.Component {
 	constructor(props) {
@@ -60,6 +75,7 @@ class Exercise3 extends React.Component {
 		<ol>
 			<li>
 			Fetching data takes some amount of time. A user has to wait until the data get loaded. Implement a loading functionality of a data is not fetched yet. You can simulate the delay using setTimeout.<br/>
+			<LoadingData />
 			</li>
 		</ol>
 		
@@ -69,24 +85,26 @@ class Exercise3 extends React.Component {
 
 
 
-const getSeason = () => {
-	let d = new Date();
-	let m = d.getMonth();
-	return (m >= 2 && m <= 4) ? "spring" : (m >= 5 && m <= 7) ? "summer" : (m >= 8 && m <= 10) ? "fall" : "winter"
-}
-const getTime = () => {
-	let d = new Date();
-	let h = d.getHours();
-	return (h >= 5 && h <= 10) ? "morning" : (h >= 11 && h <= 16) ? "noon" : (h >= 17 && h <= 23) ? "evening" : "night"
-}
 // JSX element, app, a container or a parent
 class App extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
+		this.state = {
+			season: this.getSeason(),
+			time: this.getTime()
+		}
 	}
-	state = {
-		season: getSeason(),
-		time: getTime()
+	
+	getSeason = () => {
+		let d = new Date();
+		let m = d.getMonth();
+		return (m >= 2 && m <= 4) ? "spring" : (m >= 5 && m <= 7) ? "summer" : (m >= 8 && m <= 10) ? "fall" : "winter"
+	}
+	
+	getTime = () => {
+		let d = new Date();
+		let h = d.getHours();
+		return (h >= 5 && h <= 10) ? "morning" : (h >= 11 && h <= 16) ? "noon" : (h >= 17 && h <= 23) ? "evening" : "night"
 	}
 	
 	render() {
