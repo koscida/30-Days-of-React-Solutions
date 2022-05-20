@@ -12,114 +12,33 @@ const exercise1 = (
 	<div>
 		<h1>Exercises: Level 1</h1>
 		<ol>
-			<li>What was your state today? Are you happy? I hope so. If you manage to make it this far you should be happy.<br/>happy to learn react</li>
-			<li>What is state in React ?<br/>state within a react component</li>
-			<li>What is the difference between props and state in React ?<br/>props come from parent, state is contained within component</li>
-			<li>How do you access state in a React component ?<br/>state</li>
-			<li>How do you set a set in a React component ?<br/>setState</li>
+			<li>What is conditional rendering?<br/>Rendering based on a condition</li>
+			<li>How do you implement conditional rendering?<br/>display an jsx element based on a condition</li>
+			<li>Which method of conditional rendering do you prefer to use?<br/>any</li>
 		</ol>
 	</div>
 )
 
-
-
-
-// factorial function pulled from day 01, part 8 functions, exercise 3-4
-const factorial = (num) => {
-	const arr = Array.from({length: num/2 - 1}, (_, i) => i + 2)
-	for(var i=0;i<arr.length;i++) {
-		if(num % arr[i] === 0)
-			return arr[i]
-	}
-}
-
-
-class CountryData extends React.Component {
-	countryData = [
-		{
-			"alphanumeric": "WNC07WVR7PG",
-			"country": "Mexico",
-			"phone": "(372) 273-5198",
-			"region": "Rheinland-Pfalz",
-			"text": "ipsum primis in faucibus orci luctus et ultrices posuere cubilia",
-			"list": 15
-		},
-		{
-			"alphanumeric": "IOG76RST8SB",
-			"country": "Spain",
-			"phone": "(902) 346-5715",
-			"region": "Puglia",
-			"text": "velit dui, semper et, lacinia vitae, sodales at, velit. Pellentesque",
-			"list": 11
-		},
-		{
-			"alphanumeric": "WFQ11MCO7SO",
-			"country": "Ireland",
-			"phone": "(211) 718-9159",
-			"region": "North Chungcheong",
-			"text": "justo. Proin non massa non ante bibendum ullamcorper. Duis cursus,",
-			"list": 13
-		},
-		{
-			"alphanumeric": "JJS38JCG7OO",
-			"country": "Singapore",
-			"phone": "1-568-829-5317",
-			"region": "South Gyeongsang",
-			"text": "dis parturient montes, nascetur ridiculus mus. Aenean eget magna. Suspendisse",
-			"list": 11
-		},
-		{
-			"alphanumeric": "VEB29AEL7MB",
-			"country": "Colombia",
-			"phone": "(348) 649-3834",
-			"region": "Yên Bái",
-			"text": "ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor, velit",
-			"list": 19
-		}
-	]
-	state = { ...this.countryData[0] }
-	
-	selectCountry = () => {
-		let i = Math.floor(Math.random() * this.countryData.length)
-		this.setState({ ...this.countryData[i] })
-	}
-	
-	render() {
-		return (
-			<div>
-				<div>
-					<p><b>Country</b>: {this.state.country}</p>
-					<p><b>Region</b>: {this.state.region}</p>
-					<p><b>Phone</b>: {this.state.phone}</p>
-					<p><b>ID</b>: {this.state.alphanumeric}</p>
-					<p><b>Description</b>: {this.state.text}</p>
-				</div>
-				<button onClick={this.selectCountry}>Select Country</button>
-			</div>
-		)
-	}
-	
-}
-
+const DisplayOptions = ({ options }) => options.map(x => <span className={x}>{x}</span> )
 class Exercise2 extends React.Component {
 	constructor(props) {
 		super(props)
 	}
-	switchMode = () => this.props.switchMode()
 	render() {
 		return (
 	<div>
 		<h1>Exercises: Level 2</h1>
 		<ol>
 			<li>
-			Use React state to change the background of the page. You can use this technique to apply a dark mode for your portfolio.<br/>
-			<button onClick={this.switchMode}>Change Mode</button>
+				Make a single page application which changes the body of the background based on the season of the year(Autumn, Winter, Spring, Summer)<br/>
+				Season: {this.props.season}<br/>
+				Options: <DisplayOptions options={['spring','summer','fall','winter']} />
 			</li>
 			<li>
-				After long time of lock down, you may think of travelling and you do not know where to go. 
-				You may be interested to develop a random country selector that selects your holiday destination.
+				Make a single page application which change the body of the background based on the time of the day(Morning, Noon, Evening, Night)
 				<br/>
-				<CountryData />
+				Season: {this.props.time}<br/>
+				Options: <DisplayOptions options={['morning',"noon",'evening','night']} />
 			</li>
 		</ol>
 		
@@ -130,26 +49,54 @@ class Exercise2 extends React.Component {
 
 
 
+class Exercise3 extends React.Component {
+	constructor(props) {
+		super(props)
+	}
+	render() {
+		return (
+	<div>
+		<h1>Exercises: Level 3</h1>
+		<ol>
+			<li>
+			Fetching data takes some amount of time. A user has to wait until the data get loaded. Implement a loading functionality of a data is not fetched yet. You can simulate the delay using setTimeout.<br/>
+			</li>
+		</ol>
+		
+	</div>
+	)}
+}
+
+
+
+const getSeason = () => {
+	let d = new Date();
+	let m = d.getMonth();
+	return (m >= 2 && m <= 4) ? "spring" : (m >= 5 && m <= 7) ? "summer" : (m >= 8 && m <= 10) ? "fall" : "winter"
+}
+const getTime = () => {
+	let d = new Date();
+	let h = d.getHours();
+	return (h >= 5 && h <= 10) ? "morning" : (h >= 11 && h <= 16) ? "noon" : (h >= 17 && h <= 23) ? "evening" : "night"
+}
 // JSX element, app, a container or a parent
 class App extends React.Component {
 	constructor(props) {
 		super(props)
 	}
 	state = {
-		appStyleClass: 'lightMode'
-	}
-	
-	switchMode = () => {
-		let appStyleClass = this.state.appStyleClass === 'lightMode' ? 'darkMode' : 'lightMode'
-		this.setState({ appStyleClass  })
+		season: getSeason(),
+		time: getTime()
 	}
 	
 	render() {
 		return (
-			<div className={this.state.appStyleClass}>
+			<div className={this.state.season + " " + this.state.time}>
 				{exercise1}
 				<hr/>
-				<Exercise2 switchMode={this.switchMode}/>
+				<Exercise2 season={this.state.season} time={this.state.time} />
+				<hr/>
+				<Exercise3/>
 			</div>
 		)
 	}
