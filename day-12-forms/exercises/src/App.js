@@ -49,7 +49,25 @@ import React from 'react'
 
 	
 // Exercises: Level 2
-// Validate the form given above (a gif image or a video will be provided later). First try to validate without using any library then try it with validator.js.
+// Validate the form given above (a gif image or a video will be provided later). 
+// First try to validate without using any library then try it with validator.js.
+
+// Attempt 1
+
+// ////////
+// onBlur
+// - added onBlur handler to every input
+// (generic?) method to handle all onBlur events, 
+//		will set the touched state to be true, 
+//		based on the name of the event target
+// handleBlur = (e) => {
+// 	const { name, value } = e.target
+// 	this.setState({ touched: { ...this.state.touched, [name]: true } })
+// }
+
+// ////////
+// validate
+// called at start of render(), returns errors
 
 const options = [
 	{
@@ -77,7 +95,7 @@ const options = [
 // mapping the options to list(array) of JSX options
 
 const selectOptions = options.map(({ value, label }) => (
-	<option value={value}> {label}</option>
+	<option value={value} key={value}> {label}</option>
 ))
 
 class App extends React.Component {
@@ -102,6 +120,16 @@ class App extends React.Component {
 		touched: {
 			firstName: false,
 			lastName: false,
+			email: false,
+			country: false,
+			tel: false,
+			dateOfBirth: false,
+			favoriteColor: false,
+			weight: false,
+			gender: false,
+			file: false,
+			bio: false,
+			skills: false,
 		},
 	}
 	handleChange = (e) => {
@@ -133,10 +161,10 @@ class App extends React.Component {
 	validate = () => {
 		// Object to collect error feedback and to display on the form
 		const errors = {
-			firstNameError: '',
-			lastNameError: '',
-			emailError: '',
-			phoneError: '',
+			firstNameError: '', lastNameError: '', emailError: '', 
+			phoneError: '', dateOfBirthError: '', favoriteColorError: '',
+			weightError: '', countryError: '', genderError: '',
+			skillsError: '', bioError: '', fileError: ''
 		}
 
 		// run validation
@@ -200,6 +228,13 @@ class App extends React.Component {
 				formattedSkills.push(key.toUpperCase())
 			}
 		}
+		
+		/*
+		the is the place where we connect backend api
+		to send the data to the database
+		*/
+		
+		// building new data object
 		const data = {
 			firstName,
 			lastName,
@@ -214,10 +249,6 @@ class App extends React.Component {
 			file,
 			skills: formattedSkills,
 		}
-		/*
-		the is the place where we connect backend api
-		to send the data to the database
-		*/
 		console.log(data)
 	}
 
@@ -243,195 +274,226 @@ class App extends React.Component {
 		// the noValidate attribute on the form is to stop the HTML5 built-in validation
 		
 		// call validate (runs validation) and desctucturing the returned error messages
-		const { firstNameError, lastNameError, emailError, phoneError } = this.validate()
+		const { 
+			firstNameError, lastNameError, emailError, 
+			phoneError, dateOfBirthError, favoriteColorError,
+			weightError, countryError, genderError,
+			skillsError, bioError, fileError
+		} = this.validate()
 		
 		return (
-			<div className='App'>
+			<div className='App container'>
 				<h3>Add Student</h3>
 				<form onSubmit={this.handleSubmit} noValidate>
+					
 					<div className='row'>
-						<div className='form-group'>
-						<label htmlFor='firstName'>First Name </label>
-						<input
-							type='text'
-							name='firstName'
-							value={firstName}
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<label htmlFor='firstName'>First Name </label>
+							<input 
+								type='text' 
+								name='firstName' 
+								value={firstName} 
+								onChange={this.handleChange} 
+								onBlur={this.handleBlur} 
+								placeholder='First Name'
+							/> <br />
+							<small>{firstNameError}</small>
+						</div>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<label htmlFor='lastName'>Last Name </label>
+							<input
+								type='text'
+								name='lastName'
+								value={lastName}
+								onChange={this.handleChange}
+								onBlur={this.handleBlur}
+								placeholder='Last Name'
+							/>
+							<br />
+							<small>{lastNameError}</small>
+						</div>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<label htmlFor='email'>Email </label>
+							<input
+								type='email'
+								name='email'
+								value={email}
+								onChange={this.handleChange}
+								onBlur={this.handleBlur}
+								placeholder='Email'
+							/> <br />
+							<small>{emailError}</small>
+						</div>
+					</div>
+
+					<div className='row'>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<label htmlFor='tel'>Telephone </label>
+							<input
+							type='tel'
+							name='tel'
+							value={tel}
 							onChange={this.handleChange}
 							onBlur={this.handleBlur}
-							placeholder='First Name'
-						/> <br />
-						<small>{firstNameError}</small>
+							placeholder='Tel'
+							/> <br />
+							<small>{phoneError}</small>
 						</div>
-						<div className='form-group'>
-						<label htmlFor='lastName'>Last Name </label>
-						<input
-							type='text'
-							name='lastName'
-							value={lastName}
+
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<label htmlFor='dateOfBirth'>Date of birth </label>
+							<input
+							type='date'
+							name='dateOfBirth'
+							value={dateOfBirth}
 							onChange={this.handleChange}
 							onBlur={this.handleBlur}
-							placeholder='Last Name'
-						/>
-						<br />
-						<small>{lastNameError}</small>
+							placeholder='Date of Birth'
+							/> <br />
+							<small>{dateOfBirthError}</small>
 						</div>
-						<div className='form-group'>
-						<label htmlFor='email'>Email </label>
-						<input
-							type='email'
-							name='email'
-							value={email}
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<label htmlFor='favoriteColor'>Favorite Color</label>
+							<input
+							type='color'
+							id='favoriteColor'
+							name='favoriteColor'
+							value={favoriteColor}
 							onChange={this.handleChange}
 							onBlur={this.handleBlur}
-							placeholder='Email'
-						/> <br />
-						<small>{emailError}</small>
+							placeholder='Favorite Color'
+							/> <br />
+							<small>{favoriteColorError}</small>
+						</div>
+					</div>
+						
+					<div className='row'>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<label htmlFor='weight'>Weight </label>
+							<input
+							type='number'
+							id='weight'
+							name='weight'
+							value={weight}
+							onChange={this.handleChange}
+							onBlur={this.handleBlur}
+							placeholder='Weight in Kg'
+							/> <br />
+							<small>{weightError}</small>
+						</div>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<label htmlFor='country'>Country</label> <br />
+							<select 
+								name='country' 
+								onChange={this.handleChange}
+								onBlur={this.handleBlur} 
+								id='country'>
+								{selectOptions}
+							</select> <br />
+							<small>{countryError}</small>
+						</div>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<p>Gender</p>
+							<div>
+								<input
+									type='radio'
+									id='female'
+									name='gender'
+									value='Female'
+									onChange={this.handleChange}
+									onBlur={this.handleBlur}
+									checked={gender === 'Female'}
+								/>
+								<label htmlFor='female'>Female</label>
+							</div>
+							<div>
+								<input
+									id='male'
+									type='radio'
+									name='gender'
+									value='Male'
+									onChange={this.handleChange}
+									onBlur={this.handleBlur}
+									checked={gender === 'Male'}
+								/>
+								<label htmlFor='male'>Male</label>
+							</div>
+							<div>
+								<input
+									id='nonbinary'
+									type='radio'
+									name='gender'
+									value='NonBinary'
+									onChange={this.handleChange}
+									onBlur={this.handleBlur}
+									checked={gender === 'NonBinary'}
+								/>
+								<label htmlFor='other'>Non-Binary</label>
+							</div> <br />
+							<small>{genderError}</small>
 						</div>
 					</div>
 
-					<div className='form-group'>
-						<label htmlFor='tel'>Telephone </label>
-						<input
-						type='tel'
-						name='tel'
-						value={tel}
-						onChange={this.handleChange}
-						onBlur={this.handleBlur}
-						placeholder='Tel'
-						/> <br />
-						<small>{phoneError}</small>
-					</div>
-
-					<div className='form-group'>
-						<label htmlFor='dateOfBirth'>Date of birth </label>
-						<input
-						type='date'
-						name='dateOfBirth'
-						value={dateOfBirth}
-						onChange={this.handleChange}
-						onBlur={this.handleBlur}
-						placeholder='Date of Birth'
-						/>
-					</div>
-					<div className='form-group'>
-						<label htmlFor='favoriteColor'>Favorite Color</label>
-						<input
-						type='color'
-						id='favoriteColor'
-						name='favoriteColor'
-						value={favoriteColor}
-						onChange={this.handleChange}
-						placeholder='Favorite Color'
-						/>
-					</div>
-					<div className='form-group'>
-						<label htmlFor='weight'>Weight </label>
-						<input
-						type='number'
-						id='weight'
-						name='weight'
-						value={weight}
-						onChange={this.handleChange}
-						onBlur={this.handleBlur}
-						placeholder='Weight in Kg'
-						/>
-					</div>
-					<div>
-						<label htmlFor='country'>Country</label> <br />
-						<select 
-							name='country' 
-							onChange={this.handleChange} 
-							id='country'>
-						{selectOptions}
-						</select>
-					</div>
-
-					<div>
-						<p>Gender</p>
-						<div>
-						<input
-							type='radio'
-							id='female'
-							name='gender'
-							value='Female'
-							onChange={this.handleChange}
-							checked={gender === 'Female'}
-						/>
-						<label htmlFor='female'>Female</label>
+					<div className='row'>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<p>Select your skills</p>
+							<div>
+								<input
+									type='checkbox'
+									id='html'
+									name='html'
+									onChange={this.handleChange}
+								/>
+								<label htmlFor='html'>HTML</label>
+							</div>
+							<div>
+								<input
+									type='checkbox'
+									id='css'
+									name='css'
+									onChange={this.handleChange}
+								/>
+								<label htmlFor='css'>CSS</label>
+							</div>
+							<div>
+								<input
+									type='checkbox'
+									id='javascript'
+									name='javascript'
+									onChange={this.handleChange}
+								/>
+								<label htmlFor='javascript'>JavaScript</label>
+							</div> <br />
+							<small>{skillsError}</small>
 						</div>
-						<div>
-						<input
-							id='male'
-							type='radio'
-							name='gender'
-							value='Male'
+						<div className='form-group col'>
+							<label htmlFor='bio'>Bio</label> <br />
+							<textarea
+							id='bio'
+							name='bio'
+							value={this.state.bio}
 							onChange={this.handleChange}
-							checked={gender === 'Male'}
-						/>
-						<label htmlFor='male'>Male</label>
+							onBlur={this.handleBlur}
+							placeholder='Write about yourself ...'
+							/> <br />
+							<small>{bioError}</small>
 						</div>
-						<div>
-						<input
-							id='nonbinary'
-							type='radio'
-							name='gender'
-							value='NonBinary'
-							onChange={this.handleChange}
-							checked={gender === 'NonBinary'}
-						/>
-						<label htmlFor='other'>Other</label>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<input 
+								type='file' 
+								name='file' 
+								onChange={this.handleChange}
+								onBlur={this.handleBlur} /> <br />
+							<small>{fileError}</small>
 						</div>
 					</div>
-
-					<div>
-						<p>Select your skills</p>
-						<div>
-						<input
-							type='checkbox'
-							id='html'
-							name='html'
-							onChange={this.handleChange}
-						/>
-						<label htmlFor='html'>HTML</label>
-						</div>
-						<div>
-						<input
-							type='checkbox'
-							id='css'
-							name='css'
-							onChange={this.handleChange}
-						/>
-						<label htmlFor='css'>CSS</label>
-						</div>
-						<div>
-						<input
-							type='checkbox'
-							id='javascript'
-							name='javascript'
-							onChange={this.handleChange}
-						/>
-						<label htmlFor='javascript'>JavaScript</label>
+					
+					<div className='row'>
+						<div className='form-group col-md-4 col-sm-6 col-ex-12'>
+							<button>Submit</button>
 						</div>
 					</div>
-					<div>
-						<label htmlFor='bio'>Bio</label> <br />
-						<textarea
-						id='bio'
-						name='bio'
-						value={this.state.bio}
-						onChange={this.handleChange}
-						cols='120'
-						rows='10'
-						placeholder='Write about yourself ...'
-						/>
-					</div>
-
-					<div>
-						<input type='file' name='file' onChange={this.handleChange} />
-					</div>
-					<div>
-						<button>Submit</button>
-					</div>
+					
 				</form>
 			</div>
 		)
