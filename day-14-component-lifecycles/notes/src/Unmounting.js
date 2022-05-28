@@ -30,6 +30,10 @@ import React from 'react'
 
 class Unmounting extends React.Component {
 	
+	componentWillMount() {
+		this.setState();
+	}
+
 	render() {
 		return (
 			<div className='Unmounting'>
