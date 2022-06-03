@@ -7,4 +7,9 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background: var(--bs-card-cap-bg);
+}
+.country-image img {
+	height: 90%;
+	border: 1px solid var(--bs-border-color);
 }
