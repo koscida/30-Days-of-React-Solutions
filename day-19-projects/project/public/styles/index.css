@@ -1,0 +1,18 @@
+body {
+	background-color: tomato;
+}
+.cat {
+}
+.cat .card-img-top {
+	overflow: hidden;
+	height: 10rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--bs-card-cap-bg);
+}
+.cat .card-img-top img {
+	max-height: 95%;
+	max-width: 95%;
+	border: 1px solid var(--bs-border-color);
+}
