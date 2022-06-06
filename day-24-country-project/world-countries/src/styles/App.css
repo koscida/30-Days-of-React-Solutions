@@ -1,0 +1,129 @@
+/* Color Theme Swatches in Hex */
+.UI/UX-1-hex { color: #191659; }
+.UI/UX-2-hex { color: #2E3159; }
+.UI/UX-3-hex { color: #2EA67A; }
+.UI/UX-4-hex { color: #730202; }
+.UI/UX-5-hex { color: #D92525; }
+
+/* Color Theme Swatches in RGBA */
+.UI/UX-1-rgba { color: rgba(24, 22, 89, 1); }
+.UI/UX-2-rgba { color: rgba(46, 48, 89, 1); }
+.UI/UX-3-rgba { color: rgba(46, 165, 121, 1); }
+.UI/UX-4-rgba { color: rgba(114, 2, 2, 1); }
+.UI/UX-5-rgba { color: rgba(216, 36, 36, 1); }
+
+/* Color Theme Swatches in HSLA */
+.UI/UX-1-hsla { color: hsla(241, 59, 21, 1); }
+.UI/UX-2-hsla { color: hsla(236, 31, 26, 1); }
+.UI/UX-3-hsla { color: hsla(157, 56, 41, 1); }
+.UI/UX-4-hsla { color: hsla(0, 96, 22, 1); }
+.UI/UX-5-hsla { color: hsla(0, 70, 49, 1); }
+
+
+:root {
+	--c-green: #2EA67A;
+	--c-red: #D92525;
+	--c-maroon: #730202;
+	--c-navy: #1D438A;
+	--c-black: #191659;
+}
+body {
+	color: var(--c-black);
+}
+
+header {
+	background-color: var(--c-green);
+}
+.countries-wrapper {
+	background-color: var(--c-green);
+}
+footer {
+	background-color: var(--c-navy);
+}
+
+a {
+	color: var(--c-navy);
+}
+.btn-primary {
+	background: var(--c-red);
+	border-color: var(--c-maroon);
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+	background: var(--c-maroon);
+}
+
+header h1 {
+	font-size: 4rem;
+}
+header .subtitle {
+	font-size: 1.6rem;
+}
+
+.controls input {
+	color: var(--c-red);
+	height: 5rem;
+	text-indent: 2rem;
+	outline: none;
+	border: .2rem solid var(--c-red);
+	font-size: 2rem;
+	border-radius: 3rem;
+	background: #faf6f6;
+}
+.controls .graphIcon {
+	color: var(--c-red);
+}
+.controls .graphIcon i {
+	font-size: 5rem;
+}
+.controls .feedback {
+	font-size: 1.6rem;
+	font-style: italic;
+}
+
+.card p {
+	margin-bottom: 0.5em;
+}
+.country-image {
+	overflow: hidden;
+	height: 10rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--bs-card-cap-bg);
+}
+.country-image img {
+	height: 90%;
+	border: 1px solid var(--bs-border-color);
+}
+
+
+
+
+.populationGraph {
+	display: grid;
+	grid-gap: 5px;
+	text-align: center;
+}
+.populationGraph .graphRow:nth-child(odd) {
+	background-color: var(--bs-gray-100);
+}
+.populationGraph .barLabel {
+	text-align: right;
+}
+.populationGraph .bar {
+	background: var(--c-red);
+	border-radius: 3px;
+	height: 1em;
+}
+.populationGraph .barValue {
+	text-align: left;
+}
+
+
+
+.topScroll {
+	
+}
+.topScroll i {
+	font-size: 50px;
+}
